@@ -4,8 +4,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+//var indexRouter = require('./routes/index');
+//var usersRouter = require('./routes/users');
 
 var app = express();
 
@@ -19,8 +19,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+//app.use('/', indexRouter);
+//app.use('/users', usersRouter);
+app.use('/service',service);
+var service=require('./routes/service');
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -37,5 +39,8 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
+const port = 8000;
+app.listen(port, () => {
+  console.log("Corriendo en el puerto " + port);
+});
 module.exports = app;
